@@ -1,4 +1,5 @@
-Bản lite
+Bản có cả thư viện (dùng trong trường hợp không install được thư viện):
+https://drive.google.com/drive/folders/113wMMhoqPRdLF59bDXEuSd0Ys8rDd3iM?usp=sharing
 
 # Bước 1: Clone project
 
