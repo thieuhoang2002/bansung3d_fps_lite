@@ -2,8 +2,8 @@ from ursina import *
 from helpers.CustomLib import *
 from networks.Login import LoginForm
 from networks.client import MyClient
-from data.Map import Map
-from modules.Map import load_map
+from modules.Map import Map
+# from modules.Map import load_map
 from networks.database import getIpServer
 
 
@@ -25,8 +25,8 @@ def create_client(username):
 app = Ursina()
 my_client = None
 Sky()
-# my_map = Map()
-load_map()
+my_map = Map()
+# load_map()
 LoginForm([create_client])
 
 
