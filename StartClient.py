@@ -4,7 +4,7 @@ from networks.Login import LoginForm
 from networks.client import MyClient
 from modules.Map import Map
 # from modules.Map import load_map
-from networks.database import getIpServer
+from helpers.database import getIpServer
 
 
 # def create_client(username):
