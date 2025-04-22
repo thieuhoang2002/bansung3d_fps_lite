@@ -3,6 +3,7 @@ from helpers.CustomLib import *
 from networks.Login import LoginForm
 from networks.client import MyClient
 from data.Map import Map
+from modules.Map import load_map
 from networks.database import getIpServer
 
 
@@ -16,13 +17,16 @@ def create_client(username):
     ip_server = getIpServer()  # Lấy địa chỉ IP từ hàm getIpServer
     print(f"Địa chỉ IP server: {ip_server}")
     print("type of ip_server: ", type(ip_server))
-    my_client = MyClient(username, str(ip_server), 6000, Vec3(0, 1.4, 0))
+
+    # my_client = MyClient(username, str(ip_server), 6000, Vec3(0, 1.4, 0))
+    my_client = MyClient(username, str(ip_server), 6000, Vec3(0, -.5, 0))
 
 
 app = Ursina()
 my_client = None
 Sky()
-my_map = Map()
+# my_map = Map()
+load_map()
 LoginForm([create_client])
 
 
