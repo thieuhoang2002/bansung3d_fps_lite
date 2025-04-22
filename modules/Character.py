@@ -21,7 +21,7 @@ class Character:
         self.running_actor = Actor(f'asset/animation/cutegirl/running.gltf')
         self.running_actor.reparent_to(self.running_entity)
         self.running_actor.loop('running')
-        self.running_entity.scale = .5
+        self.running_entity.scale = .7
         self.running_entity.rotation_y = 180
         self.running_entity.visible = False
         self.running_entity.collider = 'box'

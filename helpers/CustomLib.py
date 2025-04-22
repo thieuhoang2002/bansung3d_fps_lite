@@ -24,7 +24,7 @@ def createWall(x, z, width, height, mycolor=None, corner=0) -> Entity:
 def createTree(x=0, z=0) -> Entity:
     return Entity(model='asset/static/tree/Tree.obj',
                   texture='asset/static/tree/tree2.jpeg',
-                  position=(x, 1, z), colider='box',
+                  position=(x, 1, z), collider='box',
                   color=color.rgb(1, 59, 14),
                   scale=(40, 40, 40),
                   )

@@ -150,8 +150,6 @@ class MyClient:
 
         @self.client.event
         def existedClientDisConnected(idPlayerLogout):
-            # print('----------ndk log - Existed client disconnect----')
-            # print('removed id:', idPlayerLogout)
             self.list_other_players[idPlayerLogout].logout()
 
         @self.client.event
