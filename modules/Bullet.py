@@ -2,6 +2,10 @@ from ursina import *
 
 
 class Bullet(Entity):
+    '''
+    Tạo và quản lý đạn: Khi người chơi bắn (bằng súng AK47 hoặc súng ngắn), một đối tượng Bullet được tạo với hình dạng quả cầu (model='sphere') và màu vàng (color.yellow), có kích thước scale=6.
+    '''
+
     def __init__(self, position, direction, listObjectIgnore: list, getPlayerClass, ignorePosition, listClientCallBack: list):
         super().__init__(
             model='sphere',
@@ -45,7 +49,7 @@ class Bullet(Entity):
             print('ban da ban trung muc tieu co vi tri la:',
                   hit_info.entity.position)
             self.listClientCallBack[1]()
-            self.listClientCallBack[4](hit_info.entity.position)
+            self.listClientCallBack[4](hit_info.entity.position)  # bị bắn
             self.alive = False
 
     def animate_trail(self):
