@@ -1,6 +1,5 @@
 from ursina import *
 from helpers.CustomLib import *
-from data.CubePositionData import listCubePosition
 from data.WallPositionData import listWallPosition
 from data.TreePositionData import listTreePosition
 from data.HousePositionData import listHousePosition
