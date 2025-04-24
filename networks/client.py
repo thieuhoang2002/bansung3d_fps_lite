@@ -32,8 +32,8 @@ class MyClient:
         self.client = UrsinaNetworkingClient(self.ip, self.port)
         self.easy = EasyUrsinaNetworkingClient(self.client)
         self.chatMessage = ChatMessage(username)
-        self.player = Player(position=self.start_position, clientCallback=[self.sendSignalShooting, self.printPosOfOtherPlayer, self.getListOtherPlayers,
-                             self.getIdPlayers, self.check_player_shot], ignorePosition=self.start_position, player_info=self.player_info,  client=self)
+        self.player = Player(client=self, position=self.start_position, clientCallback=[self.sendSignalShooting, self.printPosOfOtherPlayer, self.getListOtherPlayers,
+                             self.getIdPlayers, self.check_player_shot], ignorePosition=self.start_position, player_info=self.player_info)
         self.time_start = time.time()
         Audio('asset/static/sound_effect/getready.ogg').play()
 
