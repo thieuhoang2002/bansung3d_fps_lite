@@ -1,7 +1,6 @@
 from ursinanetworking import easyursinanetworking
 from ursinanetworking import *
 from data.RandomPosition import playerRandomPositions
-# server = UrsinaNetworkingServer('192.168.167.238', 6000)
 
 
 class MyServer:
@@ -12,8 +11,7 @@ class MyServer:
         self.update_server = False
         self.server = None
         self.easy = None
-        self.user_active = {}
-        self.numberOfPlayers = 0
+
         self.waiting_list = []  # Danh sách chờ đăng ký ID mới
         self.is_resetting = False  # Cờ để ngăn chặn xử lý nhiều lần
 
@@ -48,14 +46,12 @@ class MyServer:
 
                 # Xóa toàn bộ danh sách người chơi
                 self.easy.replicated_variables.clear()
-                # Thông báo client reset game
-                self.server.broadcast('reset_game', {})
                 self.waiting_list = []  # Reset danh sách đăng ký
 
             @self.server.event
             def onClientConnected(Client):
                 print(f"{Client.id} joined game")
-                self.numberOfPlayers += 1
+                # self.numberOfPlayers += 1
                 # Gán vị trí ngẫu nhiên dựa vào ID
                 start_position = playerRandomPositions[Client.id]
 
@@ -175,16 +171,6 @@ class MyServer:
                     winner = int(remaining_players[0])
                     print(f"Server: Đã xác định người thắng là {winner}")
                     self.server.broadcast('endGame', {'id': winner})
-
-            @self.server.event
-            def openOtherVoiceChat(Client, content):
-                print(content)
-                self.server.broadcast('hearFromOtherClient', content)
-
-            @self.server.event
-            def stopOtherVoiceChat(Client, content):
-                print(content)
-                self.server.broadcast('stopHearFromOtherClient', content)
 
             @self.server.event
             def resetGameRequest(Client, content):

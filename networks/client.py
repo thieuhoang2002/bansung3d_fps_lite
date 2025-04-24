@@ -8,10 +8,8 @@ from data.RandomPosition import *
 
 class MyClient:
     def __init__(self, username, ip, port, start_position):
-        self.result = None
         self.ip = ip
         self.port = port
-        # self.list_other_players:list[OtherPlayer] = []
         self.list_other_players = {}
         self.player_info = {
             'id': -1,
@@ -21,9 +19,8 @@ class MyClient:
         self.client = UrsinaNetworkingClient(self.ip, self.port)
         self.easy = EasyUrsinaNetworkingClient(self.client)
         self.chatMessage = ChatMessage(username)
-        self.player = Player(client=self, position=self.start_position, clientCallback=[self.sendSignalShooting, self.printPosOfOtherPlayer, self.getListOtherPlayers,
+        self.player = Player(client=self, position=self.start_position, clientCallback=[self.sendSignalShooting, self.printPosOfOtherPlayer,
                              self.getIdPlayers, self.check_player_shot], ignorePosition=self.start_position, player_info=self.player_info)
-        self.time_start = time.time()
         Audio('asset/static/sound_effect/getready.ogg').play()
 
         @self.client.event
@@ -32,10 +29,6 @@ class MyClient:
             self.player.position = playerRandomPositions[int(content)]
             self.client.send_message(
                 'updatePosition', playerRandomPositions[int(content)])
-
-            # Debug: In ra danh sách replicated variables từ server
-            print("Dữ liệu replicated từ server:",
-                  self.easy.replicated_variables)
 
             # Xóa danh sách cũ và cập nhật danh sách mới
             self.list_other_players.clear()
@@ -172,16 +165,6 @@ class MyClient:
                 print(
                     f"🔥 Người chơi {target_id} bị bắn! Máu còn lại: {new_hp}")
 
-        @self.client.event
-        def hearFromOtherClient(content):
-            print(content)
-            # self.openVoiceChat()
-
-        @self.client.event
-        def stopHearFromOtherClient(content):
-            print(content)
-            self.stopVoiceChat()
-
         self.endGameMessage = None
         self.allowRestartGame = False
 
@@ -189,7 +172,7 @@ class MyClient:
         def endGame(content):
             print("Nhận event endGame:", content)
             self.allowRestartGame = True
-            self.result = content
+            # self.result = content
             if content['id'] == self.player_info['id']:
                 self.endGameMessage = Text(
                     text='Victory',
@@ -210,18 +193,6 @@ class MyClient:
                     color=color.rgb(57, 45, 89),
                 )
                 Audio('asset/static/sound_effect/defeat.mp3').play()
-
-        @self.easy.event
-        def onReplicatedVariableCreated(Content):
-            # print('-------ndk log new syn var created-------')
-            # print(Content)
-            pass
-
-        @self.easy.event
-        def onReplicatedVariableRemoved(Content):
-            # print('-------ndk log one syn var remove-------')
-            # print(Content)
-            pass
 
         @self.client.event
         def updateOtherPlayerPosition(content):
@@ -278,10 +249,6 @@ class MyClient:
         if not isinstance(content, dict):
             print("⚠️ Content không phải dictionary, bỏ qua:", content)
             return
-        if 'id' in content:
-            print("ℹ️ Nhận dữ liệu endGame thay vì reset_game, bỏ qua:", content)
-            return
-
         print(f"list other players resettttttt: {self.list_other_players}")
         # Xóa tất cả OtherPlayer cũ
         for player in self.list_other_players.values():
@@ -309,31 +276,19 @@ class MyClient:
         })
 
     def printPosOfOtherPlayer(self):
-        print('---------function: printPosOfOtherPlayer - client.py-------------')
-        count = 0  # 🔹 Đặt giá trị ban đầu cho count
-
-        for player_id, player in self.list_other_players.items():  # 🔹 Duyệt dict đúng cách
+        for player_id, player in self.list_other_players.items():
             if player_id != self.player_info['id']:
                 print(f'🟢 Vị trí của người chơi {player_id}: {player.pos}')
-            count += 1
 
     def check_player_shot(self, bullet_pos):
-        count = 0
-        for player_id, player in self.list_other_players.items():  # 🔹 Duyệt qua dict đúng cách
-            if player.pos == bullet_pos:  # ✅ Lúc này player là OtherPlayer
-                # player.healthbar.value -= 20
-                # Gửi thông tin cho server
+        for player_id, player in self.list_other_players.items():
+            if player.pos == bullet_pos:
                 hit_data = {'id': player_id}
                 self.client.send_message('player_shot', hit_data)
                 # print(f"🔥 Người chơi {player_id} bị trúng đạn! Máu còn lại: {player.healthbar.value}")
-
                 if player.healthbar.value <= 0:
                     self.client.send_message('checkPlayerSurvival', 'reset')
                     player.logout()
-            count += 1
-
-    def getListOtherPlayers(self):
-        return list(filter(lambda x: self.list_other_players.index(x) != self.player_info['id'], self.list_other_players))
 
     def getIdPlayers(self):
         return self.player_info['id']
