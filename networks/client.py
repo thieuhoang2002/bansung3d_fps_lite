@@ -30,7 +30,6 @@ class MyClient:
             self.client.send_message(
                 'updatePosition', playerRandomPositions[int(content)])
 
-            # Xóa danh sách cũ và cập nhật danh sách mới
             self.list_other_players.clear()
 
             for player_id, data in self.easy.replicated_variables.items():
@@ -40,20 +39,16 @@ class MyClient:
                     # ✅ Chỉ thêm người chơi khác
                     self.list_other_players[player_id] = new_player
 
-            # Debug: Kiểm tra danh sách đã cập nhật
-            print("Danh sách người chơi sau khi cập nhật:",
+            print("Danh sách những người chơi khác:",
                   self.list_other_players)
 
-        # hàm này chạy được nhưng lỗi nhân bản sau khi reset
         @self.client.event
         def allPlayersData(content):
-            print("🔵 Cập nhật lại danh sách người chơi từ server:", content)
-
             existing_players = set(self.list_other_players.keys())
-            print("Danh sách người chơi hiện tại:", self.list_other_players)
+            print("Danh sách những người chơi khác:", self.list_other_players)
 
             for player_id_str, player_data in content.items():
-                player_id = int(player_id_str)  # Luôn ép kiểu về int
+                player_id = int(player_id_str)
 
                 if player_id == self.player_info['id']:
                     print(f"🚫 Bỏ qua chính mình (ID: {player_id})")
@@ -80,7 +75,7 @@ class MyClient:
             print("🔄 Đồng bộ vị trí của tất cả người chơi từ server:", content)
 
             for player_id_str, position in content.items():
-                player_id = int(player_id_str)  # Ép kiểu player_id về int
+                player_id = int(player_id_str)
 
                 if player_id == self.player_info['id']:
                     print(
@@ -264,10 +259,6 @@ class MyClient:
             self.player.healthbar.value = 100  # Reset máu
             print(
                 f"Đã reset Player {self.player_info['id']} tại vị trí: {self.player.position}")
-
-    def updateUsername(self, name):
-        self.player_info['username'] = name
-        self.chatMessage.inputText.y = -.43
 
     def sendSignalShooting(self, position, direction):
         self.client.send_message('clientShooting', {

@@ -72,7 +72,7 @@ class MyServer:
 
                 # Gửi ID và danh sách toàn bộ player về client mới
                 Client.send_message('GetID', Client.id)
-                Client.send_message('updatePosition', start_position)
+                # Client.send_message('updatePosition', start_position)
                 Client.send_message('allPlayersData', {
                                     pid: data.content for pid, data in self.easy.replicated_variables.items()})
 
