@@ -5,17 +5,6 @@ from modules.OtherPlayer import OtherPlayer
 from modules.Player import Player
 from data.RandomPosition import *
 
-# Helper function to parse a string into a Vec3 object
-
-
-def parse_vec3(vec_str):
-    try:
-        x, y, z = map(float, vec_str.strip("()").split(","))
-        return Vec3(x, y, z)
-    except Exception as e:
-        print(f"Error parsing Vec3: {e}")
-        return Vec3(0, 0, 0)
-
 
 class MyClient:
     def __init__(self, username, ip, port, start_position):
