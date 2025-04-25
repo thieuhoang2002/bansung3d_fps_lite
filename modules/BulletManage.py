@@ -25,13 +25,5 @@ class BulletManage:
         self.num = value
         self.showBullet.text = f"{self.num}/{self.max_bullets}"
 
-    def setBulletVisibility(self):
-        if self.num <= 0:
-            self.showBullet.enabled = False
-            self.bulletIcon.enabled = False
-        else:
-            self.showBullet.enabled = True
-            self.bulletIcon.enabled = True
-
     def update(self):
         pass  # Không cần cập nhật gì cho hình đạn nên pass

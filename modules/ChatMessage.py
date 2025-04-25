@@ -26,13 +26,14 @@ class ChatMessage:
 
         self.inputText.text = ''
 
-    def handleEvent(self, key):
-        if key == Keys.enter:
-            self.addNewMessage()
-
     def scrollcustom(self):
         if len(self.messages) > 10 and len(self.messages) != self.prevLenMessages:
-            self.messages[-11].y = 1
+            '''
+            Trong Ursina, mọi thứ trong giao diện (camera.ui) hiển thị trong phạm vi cụ thể:
+                Trục X: từ khoảng -0.75 → 0.75
+                Trục Y: từ khoảng -0.5 → 0.5 (tuỳ theo camera và scale UI)
+            '''
+            self.messages[-11].y = 1  # ẩn đi, ném dòng tin nhắn sớm nhất ra khỏi khung hình chính luôn
             for message in self.messages:
                 message.y += .04
             self.y_mess = -.2

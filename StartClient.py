@@ -18,8 +18,8 @@ def create_client(username):
     print(f"Địa chỉ IP server: {ip_server}")
     print("type of ip_server: ", type(ip_server))
 
-    # my_client = MyClient(username, str(ip_server), 6000, Vec3(0, 1.4, 0))
-    my_client = MyClient(username, str(ip_server), 6000, Vec3(0, -.5, 0))
+    my_client = MyClient(username, str(ip_server), 6000, Vec3(0, 1.4, 0))
+    # my_client = MyClient(username, '192.168.2.33', 6000, Vec3(0, 1.4, 0))
 
 
 app = Ursina()

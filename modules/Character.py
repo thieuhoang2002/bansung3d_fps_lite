@@ -23,9 +23,9 @@ class Character:
         self.running_actor.loop('running')
         self.running_entity.scale = .7
         self.running_entity.rotation_y = 180
-        self.running_entity.visible = False
         self.running_entity.collider = 'box'
         self.stand_entity.collider.enabled = True
+        self.running_entity.visible = False
 
     def log_out(self):
         self.stand_entity.visible = False
