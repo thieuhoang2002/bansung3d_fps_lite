@@ -48,8 +48,8 @@ class Bullet(Entity):
         if hit_info.hit and not isinstance(hit_info.entity, self.getPlayerClass()) and hit_info.entity.position != self.ignorePosition:
             print('ban da ban trung muc tieu co vi tri la:',
                   hit_info.entity.position)
-            self.listClientCallBack[1]()
-            self.listClientCallBack[3](hit_info.entity.position)  # bị bắn
+            self.listClientCallBack[0]()
+            self.listClientCallBack[2](hit_info.entity.position)  # bị bắn
             self.alive = False
 
     def animate_trail(self):

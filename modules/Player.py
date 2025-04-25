@@ -197,8 +197,8 @@ class Player(FirstPersonController):
 
     def shootBullet(self):
         if self.bulletNotification.num > 0:
-            self.clientCallback[0](self.character.getPos(
-            ) + (0, 4, 0), self.gun[self.curr_weapon].forward)
+            # self.clientCallback[0](self.character.getPos(
+            # ) + (0, 4, 0), self.gun[self.curr_weapon].forward)
             bullet = Bullet(self.gun[self.curr_weapon].world_position,
                             direction=self.gun[self.curr_weapon].forward,
                             listObjectIgnore=[*self.gun, self.character.stand_entity, self.character.running_entity,

@@ -119,17 +119,6 @@ class MyServer:
                                       'id': Client.id, 'status': content})
 
             @self.server.event
-            def clientShooting(Client, content):
-                print('server recieved client shooting signal:', content)
-                self.server.broadcast('bulletFromOtherPlayer', {
-                    'id': Client.id,
-                    'position': tuple(content['position']),
-                    'direction': content['direction'],
-                })
-                print(
-                    f"Broadcasting bullet from player {Client.id} at position {content['position']}")
-
-            @self.server.event
             def player_shot(Client, content):
                 try:
                     print(
