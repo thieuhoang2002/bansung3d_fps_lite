@@ -49,7 +49,7 @@ class Bullet(Entity):
             print('ban da ban trung muc tieu co vi tri la:',
                   hit_info.entity.position)
             self.listClientCallBack[0]()
-            self.listClientCallBack[2](hit_info.entity.position)  # bị bắn
+            self.listClientCallBack[1](hit_info.entity.position)  # bị bắn
             self.alive = False
 
     def animate_trail(self):

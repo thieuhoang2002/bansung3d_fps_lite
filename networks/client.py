@@ -20,7 +20,7 @@ class MyClient:
         self.easy = EasyUrsinaNetworkingClient(self.client)
         self.chatMessage = ChatMessage(username)
         self.player = Player(client=self, position=self.start_position, clientCallback=[self.printPosOfOtherPlayer,
-                             self.getIdPlayers, self.check_player_shot], ignorePosition=self.start_position, player_info=self.player_info)
+                             self.check_player_shot], ignorePosition=self.start_position, player_info=self.player_info)
         Audio('asset/static/sound_effect/getready.ogg').play()
 
         @self.client.event
@@ -260,12 +260,6 @@ class MyClient:
             print(
                 f"Đã reset Player {self.player_info['id']} tại vị trí: {self.player.position}")
 
-    def sendSignalShooting(self, position, direction):
-        self.client.send_message('clientShooting', {
-            'position': position,
-            'direction': direction
-        })
-
     def printPosOfOtherPlayer(self):
         for player_id, player in self.list_other_players.items():
             if player_id != self.player_info['id']:
@@ -280,9 +274,6 @@ class MyClient:
                 if player.healthbar.value <= 0:
                     self.client.send_message('checkPlayerSurvival', 'reset')
                     player.logout()
-
-    def getIdPlayers(self):
-        return self.player_info['id']
 
     def input(self, key):
 
